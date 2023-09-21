@@ -50,6 +50,7 @@ a {
 }
 img {
     max-width: 100%;
+    vertical-align: middle;
 }
 ul {
     list-style: none;
@@ -176,6 +177,32 @@ h4 {
 
 
 
+.overlay,
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.overlay {
+    background-color: var(--dark-color);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 999;
+    transition: opacity .3s, visibility .3s;
+}
+.overlay.active {
+    opacity: .75;
+    visibility: visible;
+    pointer-events: all;
+}
+
+
+
+
+
 /*---------------- Header ------------------*/
 .inner-header {
     line-height: 80px ;
@@ -184,12 +211,12 @@ h4 {
 .list-inline > ul {
     display: flex;
     align-items: center;
-}
+} 
 .header-left, .header-right {
     flex-grow: 1;
 }
 .header-center nav {
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 1fr;
     gap: 180px;
     min-width: 720px; 
@@ -219,7 +246,8 @@ h4 {
     justify-content: flex-end;
 }
 .list-inline a,
-.menu-trigger {
+.menu-trigger,
+.close-trigger {
     position: relative;
     font-size: 24px;
     padding: 0 10px;
@@ -327,28 +355,6 @@ h4 {
     text-decoration: line-through;
 }
 
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-.overlay {
-    background-color: var(--dark-color);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    z-index: 1000;
-    transition: opacity .3s, visibility .3s;
-}
-.overlay.active {
-    opacity: .75;
-    visibility: visible;
-    pointer-events: all;
-}
-
-
 
 
 /*----------- Header Search -------------*/
@@ -369,7 +375,7 @@ form.search {
 form.search :where(i) {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 0; 
 }
 form.search .input {
     outline: 0;
@@ -401,6 +407,80 @@ form.search :where(i:last-child) {
 
 
 
+/*----------- Header: Mobile menu ------------*/
+.mobile-menu {
+    z-index: 1001;
+    pointer-events: none;
+}
+.mobile-menu .wrap {
+    position: relative;
+    min-width: calc(100% - 40px);
+    width: 360px;
+    height: 100%;
+    border-color: var(--white-color);
+    pointer-events: auto;
+}
+.mobile-menu .close-trigger,
+.mobile-menu .child-trigger {
+    position: absolute;
+    top: 0;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mobile-menu .main-menu {
+    height: 100%;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+.mobile-menu nav > ul {
+    padding: 20px 0;
+}
+.mobile-menu nav > ul > li > a {
+    position: relative;
+    padding: 12px 0;
+    font-weight: 500;
+    transition: var(--transition-color);
+}
+.mobile-menu nav li :where(li, a) {
+    display: block; 
+}
+.mobile-menu nav > ul > li > a:hover {
+    color: var(--grey-color);
+}
+.mobile-menu .child-trigger {
+    color: var(--dark-color);
+    font-size: 20px;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    transition: var(--transition-background);
+    z-index: 1;
+}
+.mobile-menu .child-trigger:hover {
+    background-color: var(--light-color) ;
+}
+.mobile-menu nav .sub-menu {
+    padding-left: 15px;
+    min-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: .3s ease-in-out;
+}
+.mobile-menu nav li.active .sub-menu {
+    min-height: 1000px;
+    visibility: hidden;
+}
+
+
+
+
 
 @media (min-width: 992px) {
     .menu-trigger {
@@ -412,6 +492,7 @@ form.search :where(i:last-child) {
     .header-left .list-inline {
         display: block;
     }
+
     /*----------- Sub-menu & mega -------------*/
     .mega-content {
         display: grid;

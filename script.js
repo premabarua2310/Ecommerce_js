@@ -18,3 +18,13 @@ for (let i = 0; i < triggerOpen.length; i++) {
     targetEl.querySelector('[close-button').addEventListener('click', openData);
     overlay.addEventListener('click', openData);
 }
+
+//mobile-menu submenu
+const submenu = document.querySelectorAll('.child-trigger');
+submenu.forEach((menu) => menu.addEventListener('click', function(e) {
+    e.preventDefault();
+    submenu.forEach((item) => item != this ? item.closest('.has-child').classList.remove('active') : null);
+    if(this.closest('.has-child').classList != 'active') {
+        this.closest('.has-child').classList.toggle('active');
+    }
+}))
