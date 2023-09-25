@@ -777,9 +777,18 @@ main > div .heading {
     background-color: var(--dark-color);
     color: var(--white-color);
 }
-
-
+.sort-data {
+    display: none;
+}
+.sort-data.active {
+    display: block; 
+}
  
+
+
+
+
+
 
 
 
